@@ -7,7 +7,6 @@
     <title>Redirecting…</title>
   </head>
   <body>
-    <p>Redirecting…</p>
 
     <script>
       (function () {
