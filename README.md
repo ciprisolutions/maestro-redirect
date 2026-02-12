@@ -16,10 +16,12 @@
         const inUrl = new URL(window.location.href);
         const params = new URLSearchParams(inUrl.search);
 
-        // --- utm_medium: email replace with something instead of "@"
+        // --- utm_medium: email with safe replacements
         const emailRaw = params.get("utm_medium"); // decoded automatically
         if (emailRaw) {
-          const emailSafe = emailRaw.replace("@", "zzzzz");
+          const emailSafe = emailRaw
+            .replace("@", "yyyyy")
+            .replace(/\./g, "zzzzz"); // replace all dots
           params.set("utm_medium", emailSafe);
         }
 
