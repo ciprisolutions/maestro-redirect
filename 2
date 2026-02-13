@@ -1,25 +1,36 @@
-<script>
-(() => {
-  const DEST = "https://maestrotravel.typeform.com/to/ZLIoPhkq";
 
-  // Start with the destination's own built-in params (your defaults)
-  const out = new URL(DEST);
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <script>
+    (() => {
+      const DEST = "https://maestrotravel.typeform.com/to/ZLIoPhkq";
+    
+      // Start with the destination's own built-in params (your defaults)
+      const out = new URL(DEST);
+    
+      // Bring over any incoming query params (override defaults if present)
+      const incoming = new URLSearchParams(window.location.search);
+      for (const [k, v] of incoming.entries()) out.searchParams.set(k, v);
+    
+      // Rewrite utm_medium placeholder email -> normal email
+      const m = out.searchParams.get("utm_medium");
+      if (m) {
+        out.searchParams.set(
+          "utm_medium",
+          m.replaceAll("yyyyy", "%40").replaceAll("zzzzz", ".")
+        );
+      }
+    
+      // Preserve hash (you want #step=calendly). Incoming hash wins if present.
+      const finalHash = window.location.hash || "#step=calendly";
+      window.location.replace(out.toString() + finalHash);
+    })();
+    </script>
+  </body>
+</html>
 
-  // Bring over any incoming query params (override defaults if present)
-  const incoming = new URLSearchParams(window.location.search);
-  for (const [k, v] of incoming.entries()) out.searchParams.set(k, v);
-
-  // Rewrite utm_medium placeholder email -> normal email
-  const m = out.searchParams.get("utm_medium");
-  if (m) {
-    out.searchParams.set(
-      "utm_medium",
-      m.replaceAll("yyyyy", "%40").replaceAll("zzzzz", ".")
-    );
-  }
-
-  // Preserve hash (you want #step=calendly). Incoming hash wins if present.
-  const finalHash = window.location.hash || "#step=calendly";
-  window.location.replace(out.toString() + finalHash);
-})();
-</script>
