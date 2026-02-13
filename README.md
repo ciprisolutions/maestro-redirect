@@ -1,4 +1,11 @@
 
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
 
     <script>
       (function () {
@@ -17,14 +24,11 @@
           params.set("utm_medium", emailSafe);
         }
 
-        // --- utm_campaign: phone, digits only
+        // --- utm_campaign: phone, digits only, last 10
         const phoneRaw = params.get("utm_campaign"); // decoded
         if (phoneRaw) {
           const digits = phoneRaw.replace(/\D+/g, "");
-          const last11 = digits.slice(-11);
-          if (last11.length === 11) {
-            params.set("utm_campaign", last11);
-          }
+          params.set("utm_campaign", digits);
         }
 
         // Build redirect URL
@@ -35,4 +39,5 @@
         window.location.replace(outUrl.toString());
       })();
     </script>
-
+  </body>
+</html>
