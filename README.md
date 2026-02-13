@@ -17,13 +17,13 @@
           params.set("utm_medium", emailSafe);
         }
 
-        // --- utm_campaign: phone, digits only, last 10
+        // --- utm_campaign: phone, digits only
         const phoneRaw = params.get("utm_campaign"); // decoded
         if (phoneRaw) {
           const digits = phoneRaw.replace(/\D+/g, "");
-          const last10 = digits.slice(-10);
-          if (last10.length === 10) {
-            params.set("utm_campaign", last10);
+          const last11 = digits.slice(-11);
+          if (last11.length === 11) {
+            params.set("utm_campaign", last11);
           }
         }
 
@@ -35,5 +35,4 @@
         window.location.replace(outUrl.toString());
       })();
     </script>
-  </body>
-</html>
+
