@@ -18,9 +18,13 @@
         // --- utm_medium: email with safe replacements
         const emailRaw = params.get("utm_medium"); // decoded automatically
         if (emailRaw) {
-          const emailSafe = emailRaw
-            .replace("@", "yyyyy")
-            .replace(/\./g, "zzzzz"); // replace all dots
+          function hexEncode(str) {
+            const bytes = new TextEncoder().encode(str);
+            return Array.from(bytes)
+              .map(b => b.toString(16).padStart(2, "0"))
+              .join("");
+          }
+          const emailSafe = hexEncode(emailRaw);
           params.set("utm_medium", emailSafe);
         }
 
