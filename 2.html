@@ -20,9 +20,16 @@
       // Rewrite utm_medium placeholder email -> normal email
       const m = out.searchParams.get("utm_medium");
       if (m) {
+        function hexDecode(hex) {
+          const bytes = new Uint8Array(
+            hex.match(/.{1,2}/g).map(byte => parseInt(byte, 16))
+          );
+          return new TextDecoder().decode(bytes);
+        }        
+        const emailDecoded = hexDecode("6a617940616363656c65727973742e636f6d");
         out.searchParams.set(
           "utm_medium",
-          m.replaceAll("yyyyy", "@").replaceAll("zzzzz", ".")
+          emailDecoded
         );
       }
     
